@@ -32,7 +32,7 @@ int list::search(float x, string z)
 	int pos = 0;
 
 	//
-	if(z == "delete") {
+	if (z == "delete") {
 		remove = tail;
 		//Go through list and see if the float exists
 		if (remove == NULL) {
@@ -40,10 +40,9 @@ int list::search(float x, string z)
 		}
 
 		while (remove->next != NULL) {
-			if (remove->data == x) {
-				cout << pos << endl;
+			if (remove->data == x)
 				return pos;
-			}
+
 			else {
 				remove = remove->next;
 				pos++;
@@ -53,35 +52,29 @@ int list::search(float x, string z)
 
 	else if (z == "insert") {
 		//Check if the linked list is empty;
-		if (temp == NULL) {
-			cout << pos << endl;
+		if (head == NULL)
 			return 0;
-		}
+
 
 		while (temp->next != NULL) {
-			pre = temp;
+			pre->data = temp->data;
 
-			if (temp->data >= x) {
-				cout << pos << endl;
+			if (temp->data >= x)
 				return pos;
-			}
-			else if (temp->data < x) {
+
+			else {
 				temp = temp->next;
 				pos++;
 			}
 
-			cur = temp;
+			cur->data = temp->data;
 		}
-		cout << "Pre: " << pre->data << endl;
-		cout << "Cur: " << cur->data << endl;
 
-		if (x >= pre->data || x <= cur->data) {
-			cout << pos << endl;
+		if ((x >= pre->data && x <= cur->data) || (pre->data == 0 || cur->data == 0))
 			return pos;
-		}
+
 		else {
 			pos++;
-			cout << pos << endl;
 			return pos;
 		}
 	}
@@ -115,10 +108,9 @@ void list::insert(float x, int y)
 
 void list::remove(int y)
 {
-	cout << "Trying to delete number\n";
 	node *Remove = new node();
 	Remove = tail;
-	
+
 	if (y == 0) {
 		Remove = Remove->next;
 	}
@@ -131,11 +123,13 @@ void list::remove(int y)
 		temp = Remove->next;
 		Remove->next = temp->next;
 	}
+
 }
 
 void list::display()
 {
 	if (head != NULL) {
+		cout << "\n Printing linked list after sorting insertions \n";
 		while (head != NULL) {
 			cout << head->data << endl;
 			head = head->next;
@@ -143,6 +137,7 @@ void list::display()
 	}
 
 	else {
+		cout << "\n Printing linked list after deletions \n";
 		while (tail != NULL) {
 			cout << tail->data << endl;
 			tail = tail->next;
