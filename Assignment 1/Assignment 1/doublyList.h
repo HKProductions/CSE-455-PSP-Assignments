@@ -17,10 +17,10 @@ struct node
 class doublyList {
 private:
 	node *head, *tail;
+	int listSize;
 
 public:
 	doublyList();
-	~doublyList();
 	int search(float, string);
 	void insert(float, int);
 	void remove(int);

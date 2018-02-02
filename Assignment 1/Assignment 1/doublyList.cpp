@@ -1,39 +1,33 @@
+#include "stdafx.h"
 #include "doublyList.h"
 
 doublyList::doublyList()
 {
 	head = NULL;
-	tail = NULL;
-}
-
-doublyList::~doublyList()
-{
+	listSize = 0;
 }
 
 int doublyList::search(float x, string z)
 {
-	node *temp = new node();
-	node *remove = new node();
+	node *temp = head;
+	node *pre = new node();
 	node *cur = new node();
-	temp = head;
 
 	//Declare local variables
 	int pos = 0;
 
-	//
 	if (z == "delete") {
-		remove = tail;
 		//Go through list and see if the float exists
-		if (remove == NULL) {
+		if (temp == NULL) {
 			return -1;
 		}
 
-		while (remove->next != NULL) {
-			if (remove->data == x)
+		while (temp != NULL) {
+			if (temp->data == x)
 				return pos;
 
 			else {
-				remove = remove->next;
+				temp = temp->next;
 				pos++;
 			}
 		}
@@ -41,12 +35,11 @@ int doublyList::search(float x, string z)
 
 	else if (z == "insert") {
 		//Check if the linked list is empty;
-		if (head == NULL)
+		if (head == NULL) 
 			return 0;
 
-
 		while (temp->next != NULL) {
-			prev->data = temp->data;
+			pre->data = temp->data;
 
 			if (temp->data >= x)
 				return pos;
@@ -59,7 +52,7 @@ int doublyList::search(float x, string z)
 			cur->data = temp->data;
 		}
 
-		if ((x >= prev->data && x <= cur->data) || (prev->data == 0 || cur->data == 0))
+		if ((x >= pre->data && x <= cur->data) || (pre->data == 0 || cur->data == 0)) 
 			return pos;
 
 		else {
@@ -67,69 +60,83 @@ int doublyList::search(float x, string z)
 			return pos;
 		}
 	}
-
 	return -1;
 }
 
 void doublyList::insert(float x, int y)
 {
+	node *temp = head;
 	node *Insert = new node();
 	Insert->data = x;
 	Insert->next = NULL;
 	Insert->prev = NULL;
 
+	listSize = listSize++;
+
 	if (y == 0) {
 		Insert->next = head;
 		head = Insert;
-		tail = head;
+	}
+
+	else if (y < listSize-1) {
+		for (int i = 0; i < y - 1; i++)
+			temp = temp->next;
+
+		node *store = temp->next;
+		Insert->prev = temp;
+		Insert->next = store;
+		temp->next = Insert;
+		store->prev = Insert;
 	}
 
 	else {
-		node *temp = head;
-		for (int i = 0; i < y - 1; i++) {
+		for (int i = 0; i < y - 1; i++)
 			temp = temp->next;
-		}
 
-		Insert->next = temp->next;
+		Insert->prev = temp;
 		temp->next = Insert;
-		tail = temp;
 	}
 }
 
 void doublyList::remove(int y)
 {
-	node *Remove = new node();
-	Remove = tail;
+	node *Remove = head;
+	node *storeNext = new node();
+	node *storePrev = new node();
+
+	listSize = listSize--;
 
 	if (y == 0) {
-		Remove = Remove->next;
+		head = head->next;
+		delete(Remove);
+	}
+
+	else if (y < listSize - 1) {
+		for (int i = 0; i < y; i++)
+			Remove = Remove->next;
+		storeNext = Remove->next;
+		storePrev = Remove->prev;
+
+		storeNext->prev = storePrev;
+		storePrev->next = storeNext;
+		delete(Remove);
 	}
 
 	else {
-		for (int i = 0; i < y - 1; i++)
+		for (int i = 0; i < y; i++)
 			Remove = Remove->next;
 
-		node *temp = new node();
-		temp = Remove->next;
-		Remove->next = temp->next;
+		storePrev = Remove->prev;
+		storePrev->next = NULL;
+		delete(Remove);
 	}
 }
 
 void doublyList::display()
 {
-	if (head != NULL) {
-		cout << "\n Printing linked list after sorting insertions \n";
-		while (head != NULL) {
-			cout << head->data << endl;
-			head = head->next;
-		}
-	}
-
-	else {
-		cout << "\n Printing linked list after deletions \n";
-		while (tail != NULL) {
-			cout << tail->data << endl;
-			tail = tail->next;
-		}
-	}
+	node *temp = head;
+	while (temp != NULL) {
+		cout << temp->data << endl;
+		temp = temp->next;
+	}	
 }
