@@ -1,0 +1,2 @@
+﻿  list.cpp
+d:\cse 455 psp\cse-455-psp-assignments\assignment 2\assignment 2\list.cpp(171): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
