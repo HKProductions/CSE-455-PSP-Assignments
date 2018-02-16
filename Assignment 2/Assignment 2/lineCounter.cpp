@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "lineCounter.h"
 
 lineCounter::lineCounter(string fileName)

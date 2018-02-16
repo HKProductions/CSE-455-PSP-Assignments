@@ -1,8 +1,7 @@
-#include "stdafx.h"
-//#include <iostream>
-//#include <string>
+#include <iostream>
+#include <string>
 
-//using namespace std;
+using namespace std;
 
 struct node
 {
