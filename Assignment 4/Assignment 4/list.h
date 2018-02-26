@@ -26,7 +26,7 @@ public:
 	float repeatSum(list);
 	float squareSum(list);
 	float corralationFormula(list, list, int);
-	float significanceFormula(list, list, int, float);
+	float significanceFormula(list, list, int);
 };
 
 #endif

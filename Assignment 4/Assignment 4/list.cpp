@@ -79,13 +79,15 @@ float list::corralationFormula(list a, list b, int n) {
 	return R;
 }
 
-float list::significanceFormula(list a, list b, int n, float r)
+float list::significanceFormula(list a, list b, int n)
 {
-	float top, bottom, T;
+	float top, bottom, T, R;
 
-	if (r > 0.7) {
-		top = (abs(r)) * (sqrt(n - 2));
-		bottom = sqrtf(1 - pow(r, 2.0));
+	R = corralationFormula(a, b, n);
+
+	if (R > 0.7) {
+		top = (abs(R)) * (sqrt(n - 2));
+		bottom = sqrtf(1 - pow(R, 2.0));
 		T = top / bottom;
 
 		return T;
